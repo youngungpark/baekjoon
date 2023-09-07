@@ -1,23 +1,33 @@
-
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int[] arr = new int[n];
-        int sum = 0;
-        for(int i=0; i<n; i++){
-            arr[i] = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int count = Integer.parseInt(br.readLine());
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int[] dt = new int[count];
+
+        for(int i=0; i<count; i++){
+            dt[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(arr);
-        for(int i=0; i<n; i++){
-            for(int j=0; j<=i; j++){
-                sum += arr[j];
-            }
+
+        Arrays.sort(dt);
+
+        long result = dt[0];
+        for(int i=1; i<count; i++){
+            dt[i] = dt[i-1] + dt[i];
+            result += dt[i];
         }
-        System.out.println(sum);
+
+        System.out.println(result);
+
+
     }
 }
