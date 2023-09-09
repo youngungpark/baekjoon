@@ -26,10 +26,6 @@ public class Main {
             }
         }
 
-        bw.write(String.valueOf(M));
-
-        br.close();
-        bw.flush();
-        bw.close();
+        System.out.println(M);
     }
 }
