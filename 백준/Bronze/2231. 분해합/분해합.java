@@ -17,7 +17,7 @@ public class Main {
 
             while(number != 0) {
                 temp += number % 10;
-                number /= 10;
+                number = number/ 10;
             }
 
             if(temp + i == N) {
