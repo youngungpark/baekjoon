@@ -1,53 +1,53 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.StringTokenizer;
 
+/**
+ * Main
+ */
 public class Main {
     static boolean[] visited;
-    static ArrayList<Integer>[] A;
+    static boolean[][] gp;
+    static int n;
+    static int m;
 
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
         visited = new boolean[n + 1];
-        A = new ArrayList[n+1];
-        for (int i = 1; i < n + 1; i++) {
-            A[i] = new ArrayList<Integer>();
-        }
+        gp = new boolean[n + 1][n + 1];
 
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            A[s].add(e);
-            A[e].add(s);
+            gp[s][e] = true;
+            gp[e][s] = true;
         }
         int count = 0;
         for (int i = 1; i < n + 1; i++) {
             if (!visited[i]) {
                 count++;
-                DFS(i);
+                dfs(i);
             }
         }
         System.out.println(count);
+
     }
 
-    static void DFS(int v) {
+    static void dfs(int v) {
         if (visited[v]) {
             return;
         }
         visited[v] = true;
-        for (int i : A[v]) {
-            if (visited[i] == false) {
-                DFS(i);
+        for (int i = 1; i < n + 1; i++) {
+            if (!visited[i] && gp[v][i]) {
+                dfs(i);
             }
-
         }
     }
-
 }
